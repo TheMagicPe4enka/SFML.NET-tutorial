@@ -1,0 +1,59 @@
+<Project>
+
+  <PropertyGroup>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <!-- main props -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>$(MSBuildProjectName)</RootNamespace>
+    <AssemblyName>$(MSBuildProjectName)</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <OutputPath>..\..\..\Build\</OutputPath>
+	<DocumentationFile>..\..\..\Build\$(MSBuildProjectName).xml</DocumentationFile>
+  </PropertyGroup>
+
+  <!-- xml documentation file, debug info -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <!-- shared assembly info -->
+  <ItemGroup>
+    <Compile Include="..\..\..\Source\SharedAssemblyInfo.cs" Link="Properties\SharedAssemblyInfo.cs" />
+    <Compile Include="..\..\..\Source\SharedAssemblyVersion.cs" Link="Properties\SharedAssemblyVersion.cs" />
+  </ItemGroup>
+
+  <!-- Library: framework reference -->
+  <!--
+  <ItemGroup Condition="'$(OutputType)' == 'Library'">
+    <FrameworkReference Include="Microsoft.NETCore.App" />
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App" PrivateAssets="all" />
+  </ItemGroup>
+  -->
+  <PropertyGroup Condition="'$(OutputType)' == 'Library'">
+    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
+  </PropertyGroup>
+
+  <!-- Exe -->
+  <PropertyGroup Condition="'$(OutputType)' == 'Exe'">
+    <TargetFramework>net8.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <!-- WinExe: windows forms -->
+  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('Win', StringComparison.InvariantCultureIgnoreCase))">
+    <TargetFramework>net8.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <!-- WinExe: windows forms (так не работает) -->
+  <PropertyGroup Condition="'$(OutputType)' == 'WinExe'">
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+</Project>
