@@ -26,11 +26,6 @@ namespace HandlingTime
 
     #region Consts
 
-    /// <summary>
-    /// Новая строка
-    /// </summary>
-    public static readonly string NewLine = Environment.NewLine;
-
     #endregion
 
     #region Variables
